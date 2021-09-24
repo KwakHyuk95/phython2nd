@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 <div class="container my-3">
     <table class="table">
         <thead>
@@ -32,9 +25,11 @@
         {% endif %}<!--분기 종료-->
         </tbody>
     </table>
+    <a href="{% url 'board:question_create' %}" class="btn btn-primary">질문 등록하기</a>
 </div>
+{% endblock %}
 <!--
-템플릿 태그 : html에 모델의 속성등을 불러오기위한 문장. vasdasds
+템플릿 태그 : html에 모델의 속성등을 불러오기위한 문장.
 1. 분기문(조건문)
 2. 반복문.
 3. 객체출력.
@@ -44,5 +39,6 @@ forloop.counter() : 0부터 표시
 forloop.first : 루프 첫번째 순서인 경우 True
 forloop.last : 마지막 순서인 경우 True
 -->
-</body>
-</html>
+
+
+

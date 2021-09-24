@@ -19,7 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('board/', include('board.urls'))
+    path('board/', include('board.urls')),
     # path('url명', 뷰에서.가져올 함수)
     #path('', views.index),
     #path('testpage/', views.test),

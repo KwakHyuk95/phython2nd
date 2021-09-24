@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, Answer
 from django.utils import timezone
+from .forms import QuestionForm
 # 경로를 못찾을때에는 앞에 마침표를 찍어 같은 경로라는걸을 알려준다.
 from django.http import HttpResponse
 # Create your views here.
@@ -40,3 +41,16 @@ def answer_create(request, question_id):
     answer = Answer(question=question, content=request.POST.get('content'), create_date=timezone.now())
     answer.save()
     return redirect('board:detail', question_id=question.id)
+
+# 21.09.24 곽혁 질문등록 기능 구현
+def question_create(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.create_date = timezone.now()
+            question.save()
+            return redirect('board:index')
+    else:
+        form = QuestionForm()
+    return render(request, 'board/question_form.html', {'form': form})

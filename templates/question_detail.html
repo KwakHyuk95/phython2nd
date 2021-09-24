@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>question_detail</title>
-    {% load static %}
-    <!--static을 붙이려면 꼭 필요함-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/boardStyle.css' %}">
-</head>
-<body>
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+{% extends 'base.html' %}
+{% block content %}
 <div class="container my-3">
     <h2 class="border-bottom py-2">{{ question.subject }}</h2>
     <div class="card my-3">
@@ -60,6 +51,4 @@ POST : 데이터를 별도로 첨부하여 전달하는 방식
 
 csrf_token : 전송한 데이터가 실제 웹 페이지에서 작성한 데이터인지를 판단해주는 템플릿 태그의 속성.
 -->
-</form>
-</body>
-</html>
+{% endblock %}
