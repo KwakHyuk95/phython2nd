@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+</head>
+<body>
+<!-- 템플릿 태그 -->
+{% if question_list %}<!--분기 시작-->
+<!--제어를 시작했을때 제어의 종료가 꼭 있어야함-->
+    <ul>
+    {% for question in question_list %}<!--반복 시작-->
+        <li><a href="{% url 'board:detail' question.id %}">{{question.subject}} </a></li><!--객체 출력 (객체.속성)-->
+    {% endfor %}<!--반복 종료-->
+    </ul>
+{% else %}<!--분기 외 조건-->
+    <p>질문이 없습니다.</p>
+{% endif %}<!--분기 종료-->
+
+<!--
+템플릿 태그 : html에 모델의 속성등을 불러오기위한 문장.
+1. 분기문(조건문)
+2. 반복문.
+3. 객체출력.
+for문 안에는 forloop라는 객체를 사용할 수 있음.
+forloop.counter : 루프내의 순서로 1부터 표시
+forloop.counter() : 0부터 표시
+forloop.first : 루프 첫번째 순서인 경우 True
+forloop.last : 마지막 순서인 경우 True
+-->
+</body>
+</html>
