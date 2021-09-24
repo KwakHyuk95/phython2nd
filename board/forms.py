@@ -1,5 +1,5 @@
 from django import forms
-from board.models import Question
+from board.models import Question, Answer
 
 # 폼
 # 페이지 요청시 전달되는 파라미터들을 쉽게 관리하기위해 사용하는 클래스
@@ -22,4 +22,9 @@ class QuestionForm(forms.ModelForm):
             'subject': '제목',
             'content': '내용',
         }
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer # 사용할 모델의 연결
+        fields = ['question', 'content'] # AnswerForm 클래스에서 사용할 Answer 모델의 속성
+
         
