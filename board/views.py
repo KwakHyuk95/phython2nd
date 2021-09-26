@@ -47,26 +47,29 @@ def test(request):
 #                     데이터의 유츌을 막기 위한 방법.
 # redirect : 페이지의 재 요청 데이터를 전송 후 페이지를 새로고침하기 위함
 
+# def answer_create(request, question_id):
+#     question = get_object_or_404(Question, pk=question_id)
+#     # 다음과 같은 방식이 가능했던 이유는 question, answer 모델이 외래키로 연결되어 있기 때문
+#     # question.answer_set.create(content=request.POST.get('content'), create_date=timezone.now())
+#     # answer 모델을 직접 사용하는 방법.
+#     answer = Answer(question=question, content=request.POST.get('content'), create_date=timezone.now())
+#     answer.save()
+#     return redirect('board:detail', question_id=question.id)
+
+# 21.09.26 곽혁 질문답변기능 수정
 def answer_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    # 다음과 같은 방식이 가능했던 이유는 question, answer 모델이 외래키로 연결되어 있기 때문
-    # question.answer_set.create(content=request.POST.get('content'), create_date=timezone.now())
-    # answer 모델을 직접 사용하는 방법.
-    answer = Answer(question=question, content=request.POST.get('content'), create_date=timezone.now())
-    answer.save()
-    return redirect('board:detail', question_id=question.id)
-
-# def answer_create(request):
-#     if request.method == 'POST':
-#         form = AnswerForm(request.POST)
-#         if form.is_valid():
-#             question = form.save(commit=False)
-#             question.create_date = timezone.now()
-#             question.save()
-#             return redirect('board:detail')
-#     else:
-#         form = QuestionForm()
-#     return render(request, 'board/question_detail.html', {'form': form})
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.question = question
+            answer.create_date = timezone.now()
+            answer.save()
+            return redirect('board:detail', question_id=question.id)
+    else:
+        form = AnswerForm()
+    return render(request, 'question_detail.html', {'question': question, 'form': form})
 
 # 21.09.24 곽혁 질문등록 기능 구현
 def question_create(request):
