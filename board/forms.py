@@ -22,9 +22,14 @@ class QuestionForm(forms.ModelForm):
             'subject': '제목',
             'content': '내용',
         }
+# 21.09.26 곽혁 질문폼 작성
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer # 사용할 모델의 연결
-        fields = ['question', 'content'] # AnswerForm 클래스에서 사용할 Answer 모델의 속성
+        fields = ['content'] # AnswerForm 클래스에서 사용할 Answer 모델의 속성
+
+        labels = {
+            'content': '답변',
+        }
 
         

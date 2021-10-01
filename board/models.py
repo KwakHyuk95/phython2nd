@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 # ORM
@@ -20,6 +21,7 @@ from django.db import models
 # create_date : 질문을 작성한 일시
 
 class Question(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=200) # CharField 문자의 길이를 제한
     content = models.TextField() # TextField 제한없이 문자를 입력받고 싶을때 씀
     create_date = models.DateTimeField() # 날짜나 시간은 상황에 맞게 TextField나 DateTimeField 사용
@@ -31,8 +33,11 @@ class Question(models.Model):
 # question : 질문
 # content : 답변의 내용
 # create_date : e답변 작성 일시.
+# 컬럼에 null을 허용하고 싶다면 null=True를 추가
 
+# 21.10.01 곽혁 글쓴이 추가
 class Answer(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE) # on_delete=models.CASCADE는 답변에 연결된 질문이 삭제되면 답변도 함께 삭제하라는 의미
     content = models.TextField()
     create_date = models.DateTimeField()

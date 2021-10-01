@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'common.apps.CommonConfig',
     'board.apps.BoardConfig', # board만 적어도 괜찮다 가독성을 높이기위해 풀네임으로 적음
     'django.contrib.admin',
     'django.contrib.auth',
@@ -122,3 +123,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+# 로그인 성공후 이동 url 조정
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
